@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #000;
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(at 20% 50%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                radial-gradient(at 80% 80%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 40% 0%, rgba(59, 130, 246, 0.1) 0px, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+            animation: shift 8s ease-in-out infinite;
+        }
+
+        @keyframes shift {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        header {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+            50% { text-shadow: 0 0 40px rgba(139, 92, 246, 0.5); }
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+        }
+
+        nav a {
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: #3b82f6;
+        }
+
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 8rem 2rem 6rem;
+            text-align: center;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.6; }
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 900;
+            letter-spacing: -2px;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInScale 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #888;
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 0.8s ease 0.2s both;
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            font-weight: 300;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            animation: fadeInUp 0.8s ease 0.4s both;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: left 0.3s;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(59, 130, 246, 0.5);
+        }
+
+        .btn-secondary {
+            border: 2px solid rgba(59, 130, 246, 0.5);
+            color: #3b82f6;
+            background: rgba(59, 130, 246, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            border-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.15);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+            transform: translateY(-4px);
+        }
+
+        section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 4rem;
+            text-align: center;
+            font-weight: 900;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease backwards;
+        }
+
+        .project-card:nth-child(1) { animation-delay: 0s; }
+        .project-card:nth-child(2) { animation-delay: 0.1s; }
+        .project-card:nth-child(3) { animation-delay: 0.2s; }
+        .project-card:nth-child(4) { animation-delay: 0.3s; }
+        .project-card:nth-child(5) { animation-delay: 0.4s; }
+        .project-card:nth-child(6) { animation-delay: 0.5s; }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            transition: top 0.4s;
+            z-index: 0;
+        }
+
+        .project-card:hover::before {
+            top: 0;
+        }
+
+        .project-card:hover {
+            transform: translateY(-12px);
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 30px 60px rgba(59, 130, 246, 0.15);
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #e0e0e0;
+            position: relative;
+            z-index: 1;
+            font-weight: 700;
+        }
+
+        .project-card p {
+            color: #999;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .tags {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tag {
+            background: rgba(59, 130, 246, 0.15);
+            color: #3b82f6;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            transition: all 0.3s;
+        }
+
+        .tag:hover {
+            background: rgba(59, 130, 246, 0.25);
+            border-color: rgba(59, 130, 246, 0.4);
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #666;
+            animation: fadeIn 0.8s ease 0.6s both;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            nav ul {
+                gap: 1.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Dev</div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <h1>Crafting Digital Experiences</h1>
+        <p>Building beautiful, functional, and innovative digital products that make an impact</p>
+        <div class="cta-buttons">
+            <a href="#projects" class="btn btn-primary">Explore My Work</a>
+            <a href="#contact" class="btn btn-secondary">Let's Talk</a>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">Latest Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>Next-Gen Platform</h3>
+                <p>A cutting-edge SaaS platform built with modern tech stack. Featuring real-time collaboration, AI-powered insights, and seamless user experience.</p>
+                <div class="tags">
+                    <span class="tag">React</span>
+                    <span class="tag">AI/ML</span>
+                    <span class="tag">WebSocket</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>Mobile App Revolution</h3>
+                <p>Cross-platform mobile application with offline capabilities and smooth animations. Shipped to 100K+ users with stellar reviews.</p>
+                <div class="tags">
+                    <span class="tag">React Native</span>
+                    <span class="tag">Firebase</span>
+                    <span class="tag">Animations</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>Data Dashboard</h3>
+                <p>Interactive data visualization platform processing 1M+ data points. Real-time updates with powerful filtering and export capabilities.</p>
+                <div class="tags">
+                    <span class="tag">D3.js</span>
+                    <span class="tag">Data Science</span>
+                    <span class="tag">Performance</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>E-Commerce Engine</h3>
+                <p>Full-stack e-commerce solution with payment integration, inventory management, and analytics. Increased client sales by 300%.</p>
+                <div class="tags">
+                    <span class="tag">Node.js</span>
+                    <span class="tag">Stripe</span>
+                    <span class="tag">Scalable</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>AI Chat Interface</h3>
+                <p>Conversational AI interface with natural language processing. Deployed with multi-language support and context awareness.</p>
+                <div class="tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">LLM</span>
+                    <span class="tag">NLP</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3>Brand Evolution</h3>
+                <p>Complete brand refresh and web redesign. Improved conversion rates and engagement through modern design principles and UX optimization.</p>
+                <div class="tags">
+                    <span class="tag">Design</span>
+                    <span class="tag">UX/UI</span>
+                    <span class="tag">Branding</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <p style="text-align: center; max-width: 700px; margin: 0 auto; color: #999; font-size: 1.1rem; line-height: 1.8;">
+            I'm passionate about creating seamless digital experiences that blend aesthetics with functionality. With expertise in full-stack development, 
+            I transform complex ideas into elegant solutions. When I'm not coding, you'll find me exploring new technologies, contributing to open source, 
+            or pushing the boundaries of what's possible on the web.
+        </p>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">Let's Connect</h2>
+        <p style="text-align: center; max-width: 600px; margin: 0 auto 2rem; color: #999; font-size: 1.05rem;">
+            I'm always open to new opportunities and collaborations. Reach out and let's create something amazing together.
+        </p>
+        <div style="text-align: center;">
+            <a href="mailto:your@email.com" class="btn btn-primary">Get In Touch</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025. All rights reserved.</p>
+    </footer>
+</body>
+</html>
